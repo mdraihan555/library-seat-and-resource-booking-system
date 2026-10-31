@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="A smart library seat and resource booking system for students.">
+
+    <title>LibSpace | Library Booking System</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Application Layout -->
+    <div class="app-container">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">L</div>
+                <div class="brand-name">
+                    <h2>LibSpace</h2>
+                    <span>Library Management</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+
+                <p class="nav-heading">MENU</p>
+
+                <a href="#dashboard" class="nav-link active">
+                    <span>▦</span>
+                    Dashboard
+                </a>
+
+                <a href="#seat-map" class="nav-link">
+                    <span>▤</span>
+                    Seat Availability
+                </a>
+
+                <a href="#resources" class="nav-link">
+                    <span>▣</span>
+                    Resources
+                </a>
+
+                <a href="#bookings" class="nav-link">
+                    <span>▧</span>
+                    My Bookings
+                </a>
+
+                <a href="#history" class="nav-link">
+                    <span>◷</span>
+                    Booking History
+                </a>
+
+                <p class="nav-heading">ACCOUNT</p>
+
+                <a href="#profile" class="nav-link">
+                    <span>◎</span>
+                    My Profile
+                </a>
+
+                <a href="#settings" class="nav-link">
+                    <span>⚙</span>
+                    Settings
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">ST</div>
+
+                <div class="user-info">
+                    <strong>Student Name</strong>
+                    <span>Student Account</span>
+                </div>
+
+                <button type="button" class="logout-btn"
+                    aria-label="Log out">
+                    ↗
+                </button>
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main-content" id="dashboard">
+
+            <!-- Top Header -->
+            <header class="topbar">
+
+                <div class="page-heading">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Find your perfect study space.</p>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button type="button" class="notification-btn"
+                        aria-label="Notifications">
+                        ♧
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="profile-avatar">ST</div>
+
+                </div>
+
+            </header>
+
+
+            <!-- Dashboard Content -->
+            <section class="dashboard-content">
+
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <div>
+                        <h2>Your space to focus.</h2>
+                        <p>
+                            Reserve seats, explore resources and
+                            make the most of your library experience.
+                        </p>
+                    </div>
+
+                    <a href="#seat-map" class="primary-btn">
+                        Book a Seat
+                        <span>→</span>
+                    </a>
+                </section>
+
+
+                <!-- Overview Cards -->
+                <section class="overview-grid"
+                    aria-label="Library overview">
+
+                    <article class="overview-card">
+                        <div class="card-icon">▤</div>
+                        <p>Available Seats</p>
+                        <h3 id="available-seats">--</h3>
+                        <span>Currently available</span>
+                    </article>
+
+                    <article class="overview-card">
+                        <div class="card-icon">▣</div>
+                        <p>Total Seats</p>
+                        <h3 id="total-seats">--</h3>
+                        <span>Across all sections</span>
+                    </article>
+
+                    <article class="overview-card">
+                        <div class="card-icon">◷</div>
+                        <p>My Active Bookings</p>
+                        <h3 id="active-bookings">--</h3>
+                        <span>Upcoming reservations</span>
+                    </article>
+
+                    <article class="overview-card">
+                        <div class="card-icon">▧</div>
+                        <p>Available Resources</p>
+                        <h3 id="available-resources">--</h3>
+                        <span>Ready for reservation</span>
+                    </article>
+
+                </section>
+
+
+                <!-- Seat Booking Section -->
+                <section class="content-panel" id="seat-map">
+
+                    <div class="section-header">
+                        <div>
+                            <h2>Seat Availability</h2>
+                            <p>Select a floor and find an available seat.</p>
+                        </div>
+
+                        <label for="floor-select" class="visually-hidden">
+                            Select floor
+                        </label>
+
+                        <select id="floor-select" name="floor">
+                            <option value="ground">Ground Floor</option>
+                            <option value="first">First Floor</option>
+                            <option value="second">Second Floor</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Seat Legend -->
+                    <div class="seat-legend">
+
+                        <span>
+                            <i class="legend-box available"></i>
+                            Available
+                        </span>
+
+                        <span>
+                            <i class="legend-box occupied"></i>
+                            Occupied
+                        </span>
+
+                        <span>
+                            <i class="legend-box selected"></i>
+                            Selected
+                        </span>
+
+                    </div>
+
+
+                    <!-- Seat Map -->
+                    <div class="seat-map-container">
+
+                        <div class="seat-map" id="seat-map-grid"
+                            aria-label="Library seating arrangement">
+
+                            <!-- Seats will be generated using JavaScript -->
+
+                            <p class="map-placeholder">
+                                Loading seat availability...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Booking Controls -->
+                    <div class="booking-controls">
+
+                        <div class="selected-seat-info">
+                            <span>Selected Seat</span>
+                            <strong id="selected-seat">None selected</strong>
+                        </div>
+
+                        <a href="#booking-form" class="primary-btn">
+                            Continue Booking →
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Booking and Resource Section -->
+                <div class="dashboard-columns">
+
+
+                    <!-- Booking Form -->
+                    <section class="content-panel" id="booking-form">
+
+                        <div class="section-header">
+                            <div>
+                                <h2>Reserve Your Seat</h2>
+                                <p>Choose your preferred time slot.</p>
+                            </div>
+                        </div>
+
+                        <form id="booking-form-element">
+
+                            <div class="form-group">
+                                <label for="booking-date">
+                                    Booking Date
+                                </label>
+
+                                <input type="date"
+                                    id="booking-date"
+                                    name="booking_date"
+                                    required>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="start-time">
+                                        Start Time
+                                    </label>
+
+                                    <input type="time"
+                                        id="start-time"
+                                        name="start_time"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="end-time">
+                                        End Time
+                                    </label>
+
+                                    <input type="time"
+                                        id="end-time"
+                                        name="end_time"
+                                        required>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="booking-purpose">
+                                    Purpose of Visit
+                                </label>
+
+                                <select id="booking-purpose"
+                                    name="purpose">
+
+                                    <option value="study">Individual Study</option>
+                                    <option value="research">Research</option>
+                                    <option value="reading">Reading</option>
+
+                                </select>
+                            </div>
+
+                            <button type="submit" class="primary-btn full-width">
+                                Confirm Reservation
+                            </button>
+
+                        </form>
+
+                    </section>
+
+
+                    <!-- Resource Availability -->
+                    <section class="content-panel" id="resources">
+
+                        <div class="section-header">
+                            <div>
+                                <h2>Library Resources</h2>
+                                <p>Explore available facilities.</p>
+                            </div>
+                        </div>
+
+                        <div class="resource-list">
+
+                            <article class="resource-item">
+                                <div class="resource-icon">▣</div>
+
+                                <div class="resource-details">
+                                    <h3>Computer Systems</h3>
+                                    <p>Computer workstation</p>
+                                    <span class="availability-status">
+                                        Check availability
+                                    </span>
+                                </div>
+
+                                <button type="button"
+                                    class="secondary-btn"
+                                    data-resource="computer">
+                                    Book
+                                </button>
+                            </article>
+
+
+                            <article class="resource-item">
+                                <div class="resource-icon">▤</div>
+
+                                <div class="resource-details">
+                                    <h3>Reading Rooms</h3>
+                                    <p>Private reading space</p>
+                                    <span class="availability-status">
+                                        Check availability
+                                    </span>
+                                </div>
+
+                                <button type="button"
+                                    class="secondary-btn"
+                                    data-resource="reading-room">
+                                    Book
+                                </button>
+                            </article>
+
+
+                            <article class="resource-item">
+                                <div class="resource-icon">▧</div>
+
+                                <div class="resource-details">
+                                    <h3>Discussion Rooms</h3>
+                                    <p>Collaborative study space</p>
+                                    <span class="availability-status">
+                                        Check availability
+                                    </span>
+                                </div>
+
+                                <button type="button"
+                                    class="secondary-btn"
+                                    data-resource="discussion-room">
+                                    Book
+                                </button>
+                            </article>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+                <!-- My Bookings -->
+                <section class="content-panel" id="bookings">
+
+                    <div class="section-header">
+                        <div>
+                            <h2>My Current Bookings</h2>
+                            <p>Keep track of your reservations.</p>
+                        </div>
+
+                        <a href="#history" class="text-link">
+                            View History →
+                        </a>
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="booking-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Resource</th>
+                                    <th>Date</th>
+                                    <th>Time Slot</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="booking-table-body">
+
+                                <tr>
+                                    <td colspan="6">
+                                        No bookings to display.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Booking History -->
+                <section class="content-panel" id="history">
+
+                    <div class="section-header">
+                        <div>
+                            <h2>Booking History</h2>
+                            <p>Your previous library reservations.</p>
+                        </div>
+                    </div>
+
+                    <div id="booking-history-list">
+                        <p>No previous bookings found.</p>
+                    </div>
+
+                </section>
+
+            </section>
+
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>
+                    © 2026 LibSpace. Library Seat & Resource
+                    Booking System.
+                </p>
+
+                <span>Designed for smarter library management.</span>
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
